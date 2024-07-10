@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import express from 'express'
-import { teste } from './controladores/controladores'
 import rotas from './rotas'
 import { json } from 'express'
 
