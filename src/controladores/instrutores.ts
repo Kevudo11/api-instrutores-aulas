@@ -6,6 +6,8 @@ type TInstrutores = {
     email: string
 }
 
+let proximoIdentificador = 3
+
 const instrutores: TInstrutores[] = [
     {
         id: 1,
@@ -43,7 +45,7 @@ export function cadastrar(req: Request, res: Response) {
     const { nome, email } = req.body
 
     const novoInstrutor = {
-        id: 3, 
+        id: proximoIdentificador++, 
         nome,
         email
     }
@@ -51,4 +53,25 @@ export function cadastrar(req: Request, res: Response) {
     instrutores.push(novoInstrutor)
 
     return res.status(201).json(novoInstrutor)
+}
+
+
+export function atualizar(req: Request, res: Response) {
+    const { id } = req.params
+    const { nome, email } = req.body
+
+    const instrutor = instrutores.find((item) => {
+        return item.id === Number(id)
+    })
+
+    if (!instrutor) {
+        return res.status(404).json({
+            mensagem: 'Instrutor(a) não encontrado(a)'
+        })
+    }
+
+ instrutor.nome = nome
+ instrutor.email = email
+
+    return res.status(204).send()
 }
