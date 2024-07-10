@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { listar } from './controladores/instrutores'
+import { detalhar, listar } from './controladores/instrutores'
 
 
 const rotas = Router()
@@ -8,6 +8,8 @@ const rotas = Router()
 rotas.get('/instrutores', listar)
 
 // detalhar as informações de um instrutor 
+
+rotas.get('/instrutores/:id', detalhar)
 // cadastra instrutos
 //editar um instrutor
 //exluir um instrutor
