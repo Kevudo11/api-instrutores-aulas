@@ -94,3 +94,4 @@ export function atualizarEmail(req: Request, res: Response) {
 
     return res.status(204).send()
 }
+
