@@ -27,3 +27,38 @@ export function cadastrarAula(req: Request, res: Response) {
 
     instrutor.aulas = [novaAula]
 }
+
+export function excluirAula(req: Request, res: Response) {
+    const { id, idAula} = req.params
+
+    const instrutor = bancodedados.instrutores.find((item) => {
+        return item.id === Number(id)
+    })
+
+    if (!instrutor) {
+        return res.status(404).json({
+            mensagem: 'Instrutor(a) não encontrado(a)'
+        })
+    }
+
+
+    if(!instrutor.aulas) {
+        return res.status(404).json({
+            mensagem: 'Aula não encontrada para o instrutor informado'
+        })
+    }
+
+    const aulaIndex = instrutor.aulas.findIndex((item) => {
+        return item.id === Number(idAula)
+    })
+
+    if (aulaIndex === -1) {
+        return res.status(404).json({
+            mensagem: 'Aula não encontrada para o instrutor informado'
+        })
+    }
+
+    instrutor.aulas.splice(aulaIndex, 1)
+
+    return res.status(204).send()
+}
